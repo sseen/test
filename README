@@ -1,0 +1,22 @@
+# objective-c
+
+```objective-c
+- (void)setMailCount:(NSNumber*)newMail
+{
+    _newMail = newMail;
+    if ([_newMail integerValue]>0) {
+        [[self.myTabBar.tabBar.items objectAtIndex:AppTabItemIndex] setBadgeValue:[NSString stringWithFormat:@"%d",[_newMail integerValue]]];
+        
+    }
+    else
+    {
+        [[self.myTabBar.tabBar.items objectAtIndex:AppTabItemIndex] setBadgeValue:nil];
+    }
+    [UIApplication sharedApplication].applicationIconBadgeNumber = _newMail.integerValue;
+    [DataCache writeCache:newMail forKey:@"badge"];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMailCount" object:nil];
+    
+    
+}
+```
